@@ -68,10 +68,17 @@ class Poligono {
             delete[] puntos;
         }
 
-        void addPunto(Punto x){
+        bool addPunto(Punto x){
             if (!lleno()){
+                for (int i = 0; i < indice; i++){
+                    if (puntos[i] == x){
+                        cout << "Se repite un punto, ingrese otro";
+                        return true;
+                    }
+                }
                 puntos[indice] = x;
                 indice++;
+                return false;
             }
         }
 
@@ -127,7 +134,9 @@ int main() {
                     int x, y;
                     cout << "Punto " << i + 1 << ": ";
                     cin >> x >> y;
-                    t->addPunto(Punto(x, y));
+                    if (t->addPunto(Punto(x, y))){
+                        i--;
+                    }
                 }
                 figuras.push_back(t);//Por ello está linea no da error
                 break;
@@ -139,7 +148,9 @@ int main() {
                     int x, y;
                     cout << "Punto " << i + 1 << ": ";
                     cin >> x >> y;
-                    c->addPunto(Punto(x, y));
+                    if (c->addPunto(Punto(x, y))){
+                        i--;
+                    }
                 }
                 figuras.push_back(c);
                 break;
